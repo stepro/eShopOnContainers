@@ -137,34 +137,34 @@
             }
             else
             {
-                services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
-                {
-                    var settings = sp.GetRequiredService<IOptions<CatalogSettings>>().Value;
-                    var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
+                // services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
+                // {
+                //     var settings = sp.GetRequiredService<IOptions<CatalogSettings>>().Value;
+                //     var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
 
-                    var factory = new ConnectionFactory()
-                    {
-                        HostName = Configuration["EventBusConnection"]
-                    };
+                //     var factory = new ConnectionFactory()
+                //     {
+                //         HostName = Configuration["EventBusConnection"]
+                //     };
 
-                    if (!string.IsNullOrEmpty(Configuration["EventBusUserName"]))
-                    {
-                        factory.UserName = Configuration["EventBusUserName"];
-                    }
+                //     if (!string.IsNullOrEmpty(Configuration["EventBusUserName"]))
+                //     {
+                //         factory.UserName = Configuration["EventBusUserName"];
+                //     }
 
-                    if (!string.IsNullOrEmpty(Configuration["EventBusPassword"]))
-                    {
-                        factory.Password = Configuration["EventBusPassword"];
-                    }
+                //     if (!string.IsNullOrEmpty(Configuration["EventBusPassword"]))
+                //     {
+                //         factory.Password = Configuration["EventBusPassword"];
+                //     }
 
-                    var retryCount = 5;
-                    if (!string.IsNullOrEmpty(Configuration["EventBusRetryCount"]))
-                    {
-                        retryCount = int.Parse(Configuration["EventBusRetryCount"]);
-                    }
+                //     var retryCount = 5;
+                //     if (!string.IsNullOrEmpty(Configuration["EventBusRetryCount"]))
+                //     {
+                //         retryCount = int.Parse(Configuration["EventBusRetryCount"]);
+                //     }
 
-                    return new DefaultRabbitMQPersistentConnection(factory, logger, retryCount);
-                });
+                //     return new DefaultRabbitMQPersistentConnection(factory, logger, retryCount);
+                // });
             }
 
             RegisterEventBus(services);
@@ -241,21 +241,21 @@
             }
             else
             {
-                services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
-                {
-                    var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
-                    var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
-                    var logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
-                    var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+                // services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
+                // {
+                //     var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
+                //     var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
+                //     var logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
+                //     var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
 
-                    var retryCount = 5;
-                    if (!string.IsNullOrEmpty(Configuration["EventBusRetryCount"]))
-                    {
-                        retryCount = int.Parse(Configuration["EventBusRetryCount"]);
-                    }
+                //     var retryCount = 5;
+                //     if (!string.IsNullOrEmpty(Configuration["EventBusRetryCount"]))
+                //     {
+                //         retryCount = int.Parse(Configuration["EventBusRetryCount"]);
+                //     }
 
-                    return new EventBusRabbitMQ(rabbitMQPersistentConnection, logger, iLifetimeScope, eventBusSubcriptionsManager, retryCount);
-                });
+                //     return new EventBusRabbitMQ(rabbitMQPersistentConnection, logger, iLifetimeScope, eventBusSubcriptionsManager, retryCount);
+                // });
             }
 
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
@@ -264,9 +264,9 @@
         }
         protected virtual void ConfigureEventBus(IApplicationBuilder app)
         {
-            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
-            eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
-            eventBus.Subscribe<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();
+            // var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+            // eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
+            // eventBus.Subscribe<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();
         }
     }
 }
