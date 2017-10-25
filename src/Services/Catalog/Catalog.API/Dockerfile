@@ -1,6 +1,9 @@
-FROM microsoft/aspnetcore:2.0
-ARG source
-WORKDIR /app
+FROM microsoft/aspnetcore-build:2.0
 EXPOSE 80
-COPY ${source:-obj/Docker/publish} .
+WORKDIR /src
+COPY BuildingBlocks ./BuildingBlocks
+WORKDIR Services/Catalog/Catalog.API
+COPY Services/Catalog/Catalog.API .
+RUN dotnet publish -c Release -o /app
+WORKDIR /app
 ENTRYPOINT ["dotnet", "Catalog.API.dll"]
